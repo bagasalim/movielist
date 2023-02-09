@@ -1,30 +1,25 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 
-import MovieDetail from "../../components/movies/MovieDetail";
-
-const Show = () => {
+const ShowMoviesByGenre = () => {
   let { id } = useParams();
-  const [movie, setMovie] = useState([]);
+  const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
     const fetchMovie = async () => {
       try {
-        const result = await axios(`http://localhost:4000/movie/${id}`);
-        await setMovie(result.data.movie);
-        console.log(result.data.movie);
-        console.log(result.data.movie.mpaa_rating);
+        const result = await axios(`http://localhost:4000/genres/${id}/movies`);
+        await setMovies(result.data.movies);
         setLoading(true);
       } catch (error) {
         setErrorMessage(error.response.data);
       }
     };
     fetchMovie();
-  }, []);
-
+  }, [id]);
   return (
     <>
       {!loading ? (
@@ -44,10 +39,20 @@ const Show = () => {
           }
         })()
       ) : (
-        <MovieDetail movie={movie} />
+        <ul>
+          {Array.isArray(movies) ? (
+            movies.map((movie, index) => (
+              <li key={index}>
+                <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
+              </li>
+            ))
+          ) : (
+            <p>No movies found</p>
+          )}
+        </ul>
       )}
     </>
   );
 };
 
-export default Show;
+export default ShowMoviesByGenre;

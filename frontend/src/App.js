@@ -1,12 +1,13 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Menu from "./components/Menu.js";
+import Admin from "./pages/Admin";
+import Genres from "./pages/Genres";
 import Home from "./pages/Home";
 import Movies from "./pages/Movies";
-import Genres from "./pages/Genres";
-import Admin from "./pages/Admin";
 import Show from "./pages/Movies/Show.js";
 
 import "./App.css";
+import ShowMoviesByGenre from "./pages/Genres/Show.js";
 
 function App() {
   return (
@@ -26,6 +27,11 @@ function App() {
               <Route path="/movies" element={<Movies />}></Route>
               <Route exact path="/movies/:id" element={<Show />}></Route>
               <Route path="/genres" element={<Genres />}></Route>
+              <Route
+                exact
+                path="/genres/:id/movies/"
+                element={<ShowMoviesByGenre />}
+              ></Route>
               <Route path="/admin" element={<Admin />}></Route>
             </Routes>
             <div></div>
