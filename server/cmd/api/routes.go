@@ -10,10 +10,15 @@ func (app application) routes() http.Handler {
 	router := httprouter.New()
 
 	router.HandlerFunc(http.MethodGet, "/status", app.statusHandler)
-	router.HandlerFunc(http.MethodGet, "/movie/:id", app.getOneMovie)
+	router.HandlerFunc(http.MethodGet, "/movies/:id", app.getOneMovie)
 	router.HandlerFunc(http.MethodGet, "/movies", app.getAllMovie)
 
 	router.HandlerFunc(http.MethodGet, "/genres", app.getAllGenre)
 	router.HandlerFunc(http.MethodGet, "/genres/:genre_id/movies", app.getMovieByGenre)
+
+	router.HandlerFunc(http.MethodPost, "/admin/movies/add", app.addMovie)
+	router.HandlerFunc(http.MethodPost, "/admin/movies/edit", app.editMovie)
+	router.HandlerFunc(http.MethodPost, "/admin/movies/delete", app.deleteMovie)
+
 	return app.enableCORS(router)
 }

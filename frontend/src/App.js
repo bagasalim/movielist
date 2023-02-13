@@ -7,6 +7,7 @@ import Movies from "./pages/Movies";
 import Show from "./pages/Movies/Show.js";
 
 import "./App.css";
+import MovieForm from "./components/movies/MovieForm.js";
 import ShowMoviesByGenre from "./pages/Genres/Show.js";
 
 function App() {
@@ -33,6 +34,16 @@ function App() {
                 element={<ShowMoviesByGenre />}
               ></Route>
               <Route path="/admin" element={<Admin />}></Route>
+              <Route
+                exact
+                path="/admin/movies/create"
+                element={<MovieForm />}
+              ></Route>
+              <Route
+                exact
+                path="/admin/movies/:id/edit"
+                element={<MovieForm />}
+              ></Route>
             </Routes>
             <div></div>
           </div>

@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import swal from "sweetalert";
 
 import "./style.css";
 
@@ -9,21 +10,59 @@ const MovieTable = () => {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
 
-  useEffect(() => {
-    const fetchMovies = async () => {
-      try {
-        const result = await axios(`http://localhost:4000/movies`);
+  const confirmDelete = (id) => {
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this imaginary file!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        const payload = {
+          id: id.toString(),
+        };
+        axios.post(
+          `http://localhost:4000/admin/movies/delete`,
+          JSON.stringify(payload)
+        );
+        swal("Poof! Your imaginary file has been deleted!", {
+          icon: "success",
+        });
+      } else {
+        swal("Your imaginary file is safe!");
+      }
+    });
+    fetchMovies();
+  };
+
+  const fetchMovies = async () => {
+    try {
+      const result = await axios(`http://localhost:4000/movies`);
+      if (result.data.movies !== null) {
         await setMovies(result.data.movies);
         setLoading(true);
-      } catch (error) {
-        setErrorMessage(error.response.data);
+      } else {
+        setErrorMessage("Data not found");
       }
-    };
+    } catch (error) {
+      setErrorMessage(error.response.data);
+    }
+  };
+
+  useEffect(() => {
     fetchMovies();
-  }, []);
+  });
 
   return (
     <>
+      <div>
+        <div>
+          <Link to={`/admin/movies/create`} className="btn btn-primary">
+            Add
+          </Link>
+        </div>
+      </div>
       {!loading ? (
         (() => {
           if (errorMessage) {
@@ -55,12 +94,7 @@ const MovieTable = () => {
                 <tr key={index}>
                   <td>{index + 1}</td>
                   <td>
-                    <Link
-                      to={`/movies/${movie.id}`}
-                      className="btn btn-primary"
-                    >
-                      {movie.title}
-                    </Link>
+                    <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
                   </td>
                   <td>
                     <div class="btn-group">
@@ -77,10 +111,20 @@ const MovieTable = () => {
                         aria-labelledby="dropdownMenuButton"
                       >
                         <li>
-                          <span class="dropdown-item"> Edit</span>
+                          <span class="dropdown-item">
+                            {" "}
+                            <Link to={`/admin/movies/${movie.id}/edit`}>
+                              Edit
+                            </Link>
+                          </span>
                         </li>
                         <li>
-                          <span class="dropdown-item"> Delete</span>
+                          <span
+                            class="dropdown-item"
+                            onClick={() => confirmDelete(movie.id)}
+                          >
+                            Delete
+                          </span>
                         </li>
                       </ul>
                     </div>
