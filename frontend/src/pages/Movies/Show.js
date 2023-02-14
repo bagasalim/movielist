@@ -13,7 +13,7 @@ const Show = () => {
   useEffect(() => {
     const fetchMovie = async () => {
       try {
-        const result = await axios(`http://localhost:4000/movie/${id}`);
+        const result = await axios(`http://localhost:4000/movies/${id}`);
         await setMovie(result.data.movie);
         console.log(result.data.movie);
         console.log(result.data.movie.mpaa_rating);

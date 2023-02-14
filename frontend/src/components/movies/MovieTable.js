@@ -2,8 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import swal from "sweetalert";
-
-import "./style.css";
+import "./movietable.css";
 
 const MovieTable = () => {
   const [movies, setMovies] = useState([]);
@@ -26,11 +25,11 @@ const MovieTable = () => {
           `http://localhost:4000/admin/movies/delete`,
           JSON.stringify(payload)
         );
-        swal("Poof! Your imaginary file has been deleted!", {
+        swal("Poof! Film has been deleted!", {
           icon: "success",
         });
       } else {
-        swal("Your imaginary file is safe!");
+        swal("The film is safe!");
       }
     });
     fetchMovies();

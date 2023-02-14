@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-import "./style.css";
+import "./movielist.css";
 
 const MovieList = () => {
   const [movies, setMovies] = useState([]);
@@ -44,14 +44,15 @@ const MovieList = () => {
         <div className="row">
           {movies.map((movie, index) => (
             <div className="col-sm-4 mb-2  " key={index}>
-              <div className="card">
-                <div className="card-body">
-                  <h5 className="card-title">{movie.title}</h5>
-                  <p className="card-subtitle">
-                    Description: {movie.description}
-                  </p>
+              <div className="card h-100">
+                <div className="card-body d-flex flex-column">
+                  <h5 className="card-title mb-3">{movie.title}</h5>
+                  <p className="card-subtitle">{movie.description}</p>
                   <p className="card-text">Runtime: {movie.runtime}</p>
-                  <Link to={`/movies/${movie.id}`} className="btn btn-primary">
+                  <Link
+                    to={`/movies/${movie.id}`}
+                    className="btn btn-primary mt-auto align-self-start"
+                  >
                     Read More
                   </Link>
                 </div>

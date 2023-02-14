@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import "./style.css";
+
 const GenreList = () => {
   const [genres, setGenres] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -41,9 +43,9 @@ const GenreList = () => {
       ) : (
         <div className="row">
           {genres.map((genre, index) => (
-            <div className="col-sm-2 m-2 card" key={index}>
+            <div className="col-sm-2 m-2 " key={index}>
               <div className="card">
-                <div className="card-body text-center">
+                <div className="card-body text-center texts">
                   <Link to={`/genres/${genre.id}/movies`}>
                     {genre.genre_name}
                   </Link>

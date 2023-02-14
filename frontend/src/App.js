@@ -1,28 +1,23 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Menu from "./components/Menu.js";
+import "./App.css";
+import MovieForm from "./components/movies/MovieForm.js";
+import Navigation from "./components/navigation/";
 import Admin from "./pages/Admin";
 import Genres from "./pages/Genres";
+import ShowMoviesByGenre from "./pages/Genres/Show.js";
 import Home from "./pages/Home";
 import Movies from "./pages/Movies";
 import Show from "./pages/Movies/Show.js";
 
-import "./App.css";
-import MovieForm from "./components/movies/MovieForm.js";
-import ShowMoviesByGenre from "./pages/Genres/Show.js";
-
 function App() {
   return (
     <Router>
+      <div className="row mb-3">
+        <Navigation />
+      </div>
       <div className="container">
         <div className="row">
-          <h1 className="mt-3">Netflix Kiribati</h1>
-          <hr className="mb-3" />
-        </div>
-        <div className="row">
-          <div className="col-sm-2 mb-3">
-            <Menu />
-          </div>
-          <div className="col-sm-10 mb-3">
+          <div className="col-sm-12 mb-3">
             <Routes>
               <Route path="/" element={<Home />}></Route>
               <Route path="/movies" element={<Movies />}></Route>

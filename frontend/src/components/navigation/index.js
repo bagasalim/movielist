@@ -1,25 +1,26 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "./Navigation.css";
 
-export const Menu = () => {
+const Navigation = () => {
   return (
-    <div className="card">
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">
+    <nav>
+      <ul className="float-end">
+        <li className="texts">
           <Link to="/">Home</Link>
         </li>
-        <li class="list-group-item">
+        <li>
           <Link to="/movies">Movies</Link>
         </li>
-        <li class="list-group-item">
+        <li>
           <Link to="/genres">Genres</Link>
         </li>
-        <li class="list-group-item">
+        <li>
           <Link to="/admin">Admin</Link>
         </li>
       </ul>
-    </div>
+    </nav>
   );
 };
 
-export default Menu;
+export default Navigation;
