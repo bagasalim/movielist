@@ -1,0 +1,11 @@
+.card-subtitle {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+}
+
+.btns {
+  align-items: end;
+}

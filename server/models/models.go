@@ -29,6 +29,11 @@ type Movie struct {
 	MovieGenre  map[int]string `json:"genres"`
 }
 
+// Error implements error
+func (Movie) Error() string {
+	panic("unimplemented")
+}
+
 type Genre struct {
 	ID        int       `json:"id"`
 	GenreName string    `json:"genre_name"`
